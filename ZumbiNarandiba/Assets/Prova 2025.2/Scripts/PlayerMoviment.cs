@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 public class PlayerMoviment : MonoBehaviour
 {
     public float speed = 5f;
@@ -8,14 +9,25 @@ public class PlayerMoviment : MonoBehaviour
 
     Vector2 movimento;
 
+
+
     void Start()
     {
+
     }
 
-    void Update() { movimento.x = Input.GetAxisRaw("Horizontal"); movimento.y = Input.GetAxisRaw("Vertical"); }
+    void Update()
+    {
+        movimento.x = Input.GetAxisRaw("Horizontal");
+        movimento.y = Input.GetAxisRaw("Vertical");
+    }
 
     private void FixedUpdate()
     {
         playerRb.MovePosition(playerRb.position + movimento * speed * Time.fixedDeltaTime);
+
+
+
     }
 }
+
