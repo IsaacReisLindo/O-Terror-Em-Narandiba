@@ -6,11 +6,12 @@ public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;
 
-    public string[] idleDirections = { "N Idle", "NO Idle", "O Idle", "SO Idle", "S Idle", "SE Idle", "L Idle", "NO Idle" };
-    public string[] walkDirections = { "N Walk", "NO Walk", "O Walk", "SO Walk", "S Walk", "SE Walk", "L Walk", "NO Walk" };
-    public string[] attackDirections = { "N Atack", "NO Atack", "O Atack", "SO Atack", "S Atack", "SE Atack", "L Atack", "NO Atack" };
-    public string[] deathDirections = { "N Die", "NO Die", "O Die", "SO Die", "S Die", "SE Die", "L Die", "NO Die" };
-
+    // Substitua ESTES arrays no topo do seu PlayerAnimation.cs
+    public string[] idleDirections = { "N Idle", "NO Idle", "O Idle", "SO Idle", "S Idle", "SE Idle", "L Idle", "NE Idle" };
+    public string[] walkDirections = { "N Walk", "NO Walk", "O Walk", "SO Walk", "S Walk", "SE Walk", "L Walk", "NE Walk" };
+    // Use "Atack" se esse for o nome EXATO no seu Animator Controller
+    public string[] attackDirections = { "N Atack", "NO Atack", "O Atack", "SO Atack", "S Atack", "SE Atack", "L Atack", "NE Atack" };
+    public string[] deathDirections = { "N Die", "NO Die", "O Die", "SO Die", "S Die", "SE Die", "L Die", "NE Die" };
     private int lastDirection;
     private bool isAttacking = false;
     public bool IsAttacking => isAttacking;
@@ -23,6 +24,8 @@ public class PlayerAnimation : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        animator.speed = 1f;
+        animator.Play("Idle");
     }
 
     public void SetDirection(Vector2 _direction)
@@ -83,9 +86,16 @@ public class PlayerAnimation : MonoBehaviour
 
     private IEnumerator FreezeDeathFrame()
     {
+        // A CORREÇÃO: Espera 1 frame para garantir que o Animator processou o novo estado
+        yield return null;
+
+        // Obtém a duração correta da animação de Morte
         float duration = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Espera a duração COMPLETA
         yield return new WaitForSeconds(duration);
 
+        // Congela a animação no último frame
         animator.speed = 0f;
     }
 

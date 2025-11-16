@@ -60,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die();
+
         }
     }
 
@@ -70,17 +70,5 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(hitFlashDuration);
         spriteRenderer.color = Color.white;
     }
-
-    private void Die()
-    {
-        isDead = true;
-
-        rb.velocity = Vector2.zero;
-
-        if (playerAnim != null)
-            playerAnim.Die();
-
-        if (playerMove != null)
-            playerMove.enabled = false;
-    }
 }
+    
