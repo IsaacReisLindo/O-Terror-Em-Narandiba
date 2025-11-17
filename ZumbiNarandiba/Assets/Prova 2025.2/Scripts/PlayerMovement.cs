@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerAnimation playerAnim;
 
     private float moveH, moveV;
-    [SerializeField] private float moveSpeed = 1.0f;
+    [SerializeField] public float moveSpeed = 1.0f;
 
     private void Awake()
     {
@@ -38,6 +38,5 @@ public class PlayerMovement : MonoBehaviour
         Vector2 direction = new Vector2(moveH, moveV);
         playerAnim.SetDirection(direction);
     }
-
 
 }

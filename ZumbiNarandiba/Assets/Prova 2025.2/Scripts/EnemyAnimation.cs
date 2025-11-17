@@ -66,6 +66,7 @@ public class EnemyAnimation : MonoBehaviour
         isDead = true;
 
         animator.Play(deathDirections[lastDirection]);
+        GameManager.instance.AddKill();
         StartCoroutine(FreezeDeathFrame());
     }
 

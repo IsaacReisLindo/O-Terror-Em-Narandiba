@@ -6,10 +6,9 @@ public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;
 
-    // Substitua ESTES arrays no topo do seu PlayerAnimation.cs
     public string[] idleDirections = { "N Idle", "NO Idle", "O Idle", "SO Idle", "S Idle", "SE Idle", "L Idle", "NE Idle" };
     public string[] walkDirections = { "N Walk", "NO Walk", "O Walk", "SO Walk", "S Walk", "SE Walk", "L Walk", "NE Walk" };
-    // Use "Atack" se esse for o nome EXATO no seu Animator Controller
+   
     public string[] attackDirections = { "N Atack", "NO Atack", "O Atack", "SO Atack", "S Atack", "SE Atack", "L Atack", "NE Atack" };
     public string[] deathDirections = { "N Die", "NO Die", "O Die", "SO Die", "S Die", "SE Die", "L Die", "NE Die" };
     private int lastDirection;
@@ -24,13 +23,11 @@ public class PlayerAnimation : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        animator.speed = 1f;
-        animator.Play("Idle");
     }
 
     public void SetDirection(Vector2 _direction)
     {
-        // não atualiza direção enquanto está atacando
+        
         if (isAttacking) return;
 
         string[] directionArray;
@@ -55,7 +52,7 @@ public class PlayerAnimation : MonoBehaviour
 
         animator.Play(attackDirections[lastDirection]);
 
-        // Ativa a hitbox, na direção atual
+        
         if (hitbox != null)
         {
             Vector2 dir = IndexToDirection(lastDirection);
@@ -82,21 +79,24 @@ public class PlayerAnimation : MonoBehaviour
         animator.Play(deathDirections[lastDirection]);
 
         StartCoroutine(FreezeDeathFrame());
+
     }
 
     private IEnumerator FreezeDeathFrame()
     {
-        // A CORREÇÃO: Espera 1 frame para garantir que o Animator processou o novo estado
+    
         yield return null;
 
-        // Obtém a duração correta da animação de Morte
+       
         float duration = animator.GetCurrentAnimatorStateInfo(0).length;
 
-        // Espera a duração COMPLETA
+       
         yield return new WaitForSeconds(duration);
 
-        // Congela a animação no último frame
+       
         animator.speed = 0f;
+
+        GameManager.instance.GameOver();
     }
 
 
@@ -129,5 +129,10 @@ public class PlayerAnimation : MonoBehaviour
             default: return Vector2.down;
         }
     }
-
+    public void SwitchAnimatorController(RuntimeAnimatorController newController)
+    {
+        animator.runtimeAnimatorController = newController;
+        animator.Play(idleDirections[lastDirection]);
+    }
 }
+
