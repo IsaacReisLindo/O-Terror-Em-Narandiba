@@ -36,3 +36,6 @@ Transformação, depois de matar certo número de inimigos você se tranforma e 
 
 Final do Nível
 Cena: O jogador atravessa uma horda de zumbis finais e entra no refúgio.
+
+Para que Foi desenvolvido?
+Tendo sido feito Por Isaac Reis e Lucas Oliveira, o jogo foi Produzido no segundo semestre da faculdade de Jogos Digitais da UNEB para a prova final da matéria de Programação de Jogos de Murilo Borato
